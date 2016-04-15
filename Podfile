@@ -5,5 +5,6 @@ use_frameworks!
 
 target 'SelfieTaker' do
 pod 'syncano-ios'
+pod 'SDWebImage', '~>3.7'
 end
 

@@ -8,6 +8,7 @@
 
 import UIKit
 import syncano_ios
+import SDWebImage
 
 private let reuseIdentifier = "Cell"
 
@@ -111,20 +112,21 @@ class CollectionViewController: UICollectionViewController {
                 cell.activityIndicator.stopAnimating()
                 cell.imageView.image = UIImage(data: data)
             } else if photo.image != nil {
-                //if not, we start downloading photo from Syncano
-                photo.image?.storeDataAfterFetch = true
-                
                 //start loading animation, so user knows what's going on
                 cell.activityIndicator.startAnimating()
                 
-                //start download process
-                photo.image?.fetchInBackgroundWithCompletion({ data, error in
+                //we added Pod module that helps with caching - lets use it!
+                //download image for give URL - it will be cached automatically
+                cell.imageView.sd_setImageWithURL(photo.image?.fileURL, completed: { image, error, cacheType, url in
                     
-                    //after downloading image, stop loading indicator and set the image on a cell
+                    //when image is downloaded, or taken from cache - stop the animation
                     cell.activityIndicator.stopAnimating()
-                    if let data = data {
-                        cell.imageView.image = UIImage(data: data)
-                    }
+                    
+                    //set the image on cell
+                    cell.imageView.image = image
+                    
+                    //save downloaded image
+                    photo.downloadedImage = image
                 })
             }
         }
@@ -140,8 +142,8 @@ class CollectionViewController: UICollectionViewController {
         let photo = self.photos[indexPath.row]
         
         //if there is an image (already downloaded) pass it to delegate
-        if let data = photo.image?.data {
-            self.delegate?.userDidSelectPhoto(UIImage(data: data)!)
+        if let image = photo.downloadedImage {
+            self.delegate?.userDidSelectPhoto(image)
         }
     }
     

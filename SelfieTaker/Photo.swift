@@ -15,6 +15,7 @@ class Photo : SCDataObject {
     var name = ""
     var deviceId = ""
     var image : SCFile?
+    var downloadedImage : UIImage?
     
     //custom init method - useful for quick creation of new objects of this type
     init(name: String, image: UIImage?) {

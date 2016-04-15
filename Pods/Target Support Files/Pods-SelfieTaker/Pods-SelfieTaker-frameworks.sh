@@ -88,6 +88,7 @@ if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_framework "Pods-SelfieTaker/FMDB.framework"
   install_framework "Pods-SelfieTaker/FMDBMigrationManager.framework"
   install_framework "Pods-SelfieTaker/Mantle.framework"
+  install_framework "Pods-SelfieTaker/SDWebImage.framework"
   install_framework "Pods-SelfieTaker/UICKeyChainStore.framework"
   install_framework "Pods-SelfieTaker/syncano_ios.framework"
 fi
@@ -96,6 +97,7 @@ if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework "Pods-SelfieTaker/FMDB.framework"
   install_framework "Pods-SelfieTaker/FMDBMigrationManager.framework"
   install_framework "Pods-SelfieTaker/Mantle.framework"
+  install_framework "Pods-SelfieTaker/SDWebImage.framework"
   install_framework "Pods-SelfieTaker/UICKeyChainStore.framework"
   install_framework "Pods-SelfieTaker/syncano_ios.framework"
 fi

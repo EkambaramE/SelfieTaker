@@ -30,6 +30,9 @@ PODS:
   - Mantle (2.0.6):
     - Mantle/extobjc (= 2.0.6)
   - Mantle/extobjc (2.0.6)
+  - SDWebImage (3.7.5):
+    - SDWebImage/Core (= 3.7.5)
+  - SDWebImage/Core (3.7.5)
   - syncano-ios (4.1.1):
     - AFNetworking (= 2.6.3)
     - FMDB (= 2.6)
@@ -39,6 +42,7 @@ PODS:
   - UICKeyChainStore (2.1.0)
 
 DEPENDENCIES:
+  - SDWebImage (~> 3.7)
   - syncano-ios
 
 SPEC CHECKSUMS:
@@ -46,9 +50,10 @@ SPEC CHECKSUMS:
   FMDB: c1968bab3ab0aed38f66cb778ae1e7fa9a652b6e
   FMDBMigrationManager: d52007f328ea0665e8985ca8a33500707aef084f
   Mantle: 299966b00759634931699f69cb6a30b9239b944d
+  SDWebImage: 69c6303e3348fba97e03f65d65d4fbc26740f461
   syncano-ios: 0c56f4801f1aba4abb4121ebf815f02195d1d41e
   UICKeyChainStore: f1cbd42216a113f0165de1e733e62905b8823432
 
-PODFILE CHECKSUM: b9287573ab13fee032eeee75feb5d55ba884fb7c
+PODFILE CHECKSUM: 058b6c1bfe90a275439ef1f058591303764471b7
 
 COCOAPODS: 1.0.0.beta.1
