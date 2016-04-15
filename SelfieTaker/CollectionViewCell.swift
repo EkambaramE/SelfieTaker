@@ -12,4 +12,7 @@ import UIKit
 class CollectionViewCell: UICollectionViewCell {
     //outlet to image view in our custom cell
     @IBOutlet weak var imageView: UIImageView!
+    
+    //add activity indictor showing that image is being downloaded
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
 }

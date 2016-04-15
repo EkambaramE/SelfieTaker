@@ -9,9 +9,10 @@
 import UIKit
 
 // UIViewController is the base class
-// UIImagePickerControllerDelegate and UINavigationControllerDelegate are protocols - they define set of behaviors 
-// that your class can or have to implement (methods/functions in protocol can be either required or optional)
-class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+class ViewController: UIViewController {
+    
+    //define activity indicator and initialize it
+    let activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: .WhiteLarge)
 
     //@IBOutlet marks a variable that is connected to element of UI defined in Storyboard
     //it usually is created for you by XCode, when you use drag&drop from UI to code
@@ -22,6 +23,10 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
+        //set up activity indicator properties - color, behavior etc.
+        self.activityIndicator.color = UIColor.blackColor()
+        self.activityIndicator.hidesWhenStopped = true
+        self.navigationItem.titleView = activityIndicator
     }
     
     //called when app received memory warning from the system
@@ -31,6 +36,24 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         // Dispose of any resources that can be recreated.
         //for example - get rid of our selfie image
         self.imageView.image = nil
+    }
+    
+    //method to send current selfie image to Syncano
+    @IBAction func sendPressed(button: UIBarButtonItem) {
+        //if there is not image, return - we don't want to send empty images
+        guard let image = self.imageView.image else {
+            return
+        }
+        let photo = Photo(name: "\(NSDate())", image: image)
+        self.activityIndicator.startAnimating()
+        button.enabled = false
+        photo.saveWithCompletionBlock { error in
+            self.activityIndicator.stopAnimating()
+            button.enabled = true
+            if error != nil {
+                print("Error saving image: \(error)");
+            }
+        }
     }
 
     //@IBAction - similar to @IBOutlet - but the connection here is between UI element and a function
@@ -67,22 +90,23 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         if segue.identifier == "toCollectionView" {
             //we get the destination view controller - meaning the controller that will be shown on the screen next
             if let collectionViewController = segue.destinationViewController as? CollectionViewController {
-                //we add a photo to the next view controller
-               collectionViewController.photos = [Photo(name: "name", image: self.imageView.image)]
+               collectionViewController.delegate = self
             }
         }
     }
 }
 
 // MARK: UIImagePickerControllerDelegate
-//in this class extension we put methods defined in UIImagePickerControllerDelegate protocol
-extension ViewController {
+// UIImagePickerControllerDelegate and UINavigationControllerDelegate are protocols - they define set of behaviors
+// that your class can or have to implement (methods/functions in protocol can be either required or optional)
+// in this class extension we put methods defined in UIImagePickerControllerDelegate protocol
+extension ViewController : UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     //this method will be called every time image picker controller finishes picking new image (from album or camera)
     func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
         //we get the original image
         if let pickedImage = info[UIImagePickerControllerOriginalImage] as? UIImage {
             //we add taken picture to our image -- and show it on screen doing so
-            imageView.image = pickedImage
+            self.imageView.image = pickedImage
         }
         //we hide image picker controller (image was taken, we don't need it anymore)
         self.dismissViewControllerAnimated(true, completion: nil)
@@ -92,6 +116,15 @@ extension ViewController {
     func imagePickerControllerDidCancel(picker: UIImagePickerController) {
         //if user pressed cancel, we want to hide image picker from the screen
         self.dismissViewControllerAnimated(true, completion: nil)
+    }
+}
+
+// MARK: SelectedPhotoDelegate
+// implementation of protocol - define what happens when user selects a photo
+extension ViewController : SelectedPhotoDelegate {
+    func userDidSelectPhoto(photo: UIImage) {
+        self.imageView.image = photo
+        self.navigationController?.popToRootViewControllerAnimated(true)
     }
 }
 

@@ -135,7 +135,7 @@
 			<string>2147483647</string>
 			<key>files</key>
 			<array>
-				<string>CE14C8965F3B31F252465A33</string>
+				<string>9C77D97047BBB57019E9DF5E</string>
 			</array>
 			<key>isa</key>
 			<string>PBXFrameworksBuildPhase</string>
@@ -698,7 +698,7 @@
 		<dict>
 			<key>children</key>
 			<array>
-				<string>BAFCD1D392B43B9D2DA6F292</string>
+				<string>57670F9F152DEE319D7E45F4</string>
 			</array>
 			<key>isa</key>
 			<string>PBXGroup</string>
@@ -706,6 +706,19 @@
 			<string>Frameworks</string>
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
+		</dict>
+		<key>57670F9F152DEE319D7E45F4</key>
+		<dict>
+			<key>explicitFileType</key>
+			<string>wrapper.framework</string>
+			<key>includeInIndex</key>
+			<string>0</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>path</key>
+			<string>Pods_SelfieTaker.framework</string>
+			<key>sourceTree</key>
+			<string>BUILT_PRODUCTS_DIR</string>
 		</dict>
 		<key>81FFB576037E7CD6A10CBD79</key>
 		<dict>
@@ -761,6 +774,13 @@ fi
 			<key>showEnvVarsInLog</key>
 			<string>0</string>
 		</dict>
+		<key>9C77D97047BBB57019E9DF5E</key>
+		<dict>
+			<key>fileRef</key>
+			<string>57670F9F152DEE319D7E45F4</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
 		<key>A8D09BB393D4D456A70854F6</key>
 		<dict>
 			<key>includeInIndex</key>
@@ -775,26 +795,6 @@ fi
 			<string>Pods/Target Support Files/Pods-SelfieTaker/Pods-SelfieTaker.release.xcconfig</string>
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
-		</dict>
-		<key>BAFCD1D392B43B9D2DA6F292</key>
-		<dict>
-			<key>explicitFileType</key>
-			<string>archive.ar</string>
-			<key>includeInIndex</key>
-			<string>0</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>path</key>
-			<string>libPods-SelfieTaker.a</string>
-			<key>sourceTree</key>
-			<string>BUILT_PRODUCTS_DIR</string>
-		</dict>
-		<key>CE14C8965F3B31F252465A33</key>
-		<dict>
-			<key>fileRef</key>
-			<string>BAFCD1D392B43B9D2DA6F292</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
 		</dict>
 	</dict>
 	<key>rootObject</key>

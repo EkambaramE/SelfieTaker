@@ -8,17 +8,34 @@
 
 import Foundation
 import UIKit
+import syncano_ios
 
 //class defining our Photo class
-class Photo {
+class Photo : SCDataObject {
     var name = ""
     var deviceId = ""
-    var image : UIImage?
+    var image : SCFile?
     
-    //custom init method - useful for quick creation of new objects of this class
+    //custom init method - useful for quick creation of new objects of this type
     init(name: String, image: UIImage?) {
-        self.name = name;
-        self.image = image
+        self.name = name
+        if image != nil {
+            let data = UIImageJPEGRepresentation(image!, 0.5)
+            self.image = SCFile(aData: data)
+        }
         self.deviceId = Utilities.getDeviceIdentifier()
+        super.init()
+    }
+    
+    required init(dictionary dictionaryValue: [NSObject : AnyObject]!) throws {
+        try super.init(dictionary: dictionaryValue)
+    }
+    
+    required init!(coder: NSCoder!) {
+        super.init(coder: coder)
+    }
+    
+    override init() {
+        super.init()
     }
 }

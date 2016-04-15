@@ -28,26 +28,11 @@
         <scene sceneID="tne-QT-ifu">
             <objects>
                 <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="SelfieTaker" customModuleProvider="target" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
-                        <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                    <imageView key="view" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="kn7-Sq-xR9">
                         <rect key="frame" x="0.0" y="64" width="600" height="536"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="GDF-tt-GOo">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="536"/>
-                            </imageView>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                        <constraints>
-                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="GDF-tt-GOo" secondAttribute="bottom" id="3Dt-CY-iAA"/>
-                            <constraint firstItem="GDF-tt-GOo" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="topMargin" id="ELI-Ij-oaU"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="GDF-tt-GOo" secondAttribute="trailing" constant="-20" id="Nu9-5T-yzk"/>
-                            <constraint firstItem="GDF-tt-GOo" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="-20" id="pvR-nl-0Bt"/>
-                        </constraints>
-                    </view>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                    </imageView>
                     <toolbarItems/>
                     <navigationItem key="navigationItem" id="2eD-Bx-CbV">
                         <nil key="title"/>
@@ -62,7 +47,11 @@
                                     <action selector="removeSelfiePressed:" destination="BYZ-38-t0r" id="hcA-w7-mAh"/>
                                 </connections>
                             </barButtonItem>
-                            <barButtonItem title="Send" id="sfl-Lk-nwf"/>
+                            <barButtonItem title="Send" id="sfl-Lk-nwf">
+                                <connections>
+                                    <action selector="sendPressed:" destination="BYZ-38-t0r" id="NYB-9d-V9N"/>
+                                </connections>
+                            </barButtonItem>
                         </leftBarButtonItems>
                         <barButtonItem key="rightBarButtonItem" title="Selfies" id="2Dh-px-PaC">
                             <connections>
@@ -72,7 +61,7 @@
                     </navigationItem>
                     <nil key="simulatedBottomBarMetrics"/>
                     <connections>
-                        <outlet property="imageView" destination="GDF-tt-GOo" id="mdx-77-mUp"/>
+                        <outlet property="imageView" destination="kn7-Sq-xR9" id="4B8-93-CDd"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -84,18 +73,18 @@
             <objects>
                 <collectionViewController storyboardIdentifier="CollectionViewController" id="WVY-Gh-KF1" customClass="CollectionViewController" customModule="SelfieTaker" customModuleProvider="target" sceneMemberID="viewController">
                     <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" indicatorStyle="white" dataMode="prototypes" id="XPa-Xv-wA1">
-                        <rect key="frame" x="0.0" y="64" width="600" height="536"/>
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                        <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="266-Ot-kiC">
+                        <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="3" minimumInteritemSpacing="3" id="266-Ot-kiC">
                             <size key="itemSize" width="120" height="120"/>
                             <size key="headerReferenceSize" width="0.0" height="0.0"/>
                             <size key="footerReferenceSize" width="0.0" height="0.0"/>
-                            <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                            <inset key="sectionInset" minX="3" minY="3" maxX="3" maxY="3"/>
                         </collectionViewFlowLayout>
                         <cells>
                             <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" restorationIdentifier="Cell" reuseIdentifier="Cell" id="QkQ-nz-gWI" customClass="CollectionViewCell" customModule="SelfieTaker" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="0.0" width="120" height="120"/>
+                                <rect key="frame" x="3" y="67" width="120" height="120"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                     <rect key="frame" x="0.0" y="0.0" width="120" height="120"/>
@@ -104,6 +93,10 @@
                                         <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Feq-rs-EES">
                                             <rect key="frame" x="0.0" y="0.0" width="120" height="120"/>
                                         </imageView>
+                                        <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="98E-MA-u1a">
+                                            <rect key="frame" x="41" y="41" width="37" height="37"/>
+                                            <color key="color" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                        </activityIndicatorView>
                                     </subviews>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 </view>
@@ -111,10 +104,12 @@
                                     <constraint firstItem="Feq-rs-EES" firstAttribute="leading" secondItem="QkQ-nz-gWI" secondAttribute="leadingMargin" constant="-8" id="5er-Ox-Qf5"/>
                                     <constraint firstItem="Feq-rs-EES" firstAttribute="top" secondItem="QkQ-nz-gWI" secondAttribute="topMargin" constant="-8" id="Dhu-lJ-u8P"/>
                                     <constraint firstItem="Feq-rs-EES" firstAttribute="trailing" secondItem="QkQ-nz-gWI" secondAttribute="trailingMargin" constant="-8" id="EOn-0b-DcG"/>
+                                    <constraint firstItem="98E-MA-u1a" firstAttribute="centerY" secondItem="Feq-rs-EES" secondAttribute="centerY" id="G0d-sG-3Kw"/>
                                     <constraint firstAttribute="trailingMargin" secondItem="Feq-rs-EES" secondAttribute="trailing" constant="-8" id="NLY-z4-S5Z"/>
                                     <constraint firstItem="Feq-rs-EES" firstAttribute="leading" secondItem="QkQ-nz-gWI" secondAttribute="leadingMargin" constant="-8" id="mcU-ke-YnN"/>
                                     <constraint firstAttribute="bottomMargin" secondItem="Feq-rs-EES" secondAttribute="bottom" constant="-8" id="pnh-WR-jmu"/>
                                     <constraint firstItem="Feq-rs-EES" firstAttribute="top" secondItem="QkQ-nz-gWI" secondAttribute="topMargin" constant="-8" id="uVD-ZG-UZd"/>
+                                    <constraint firstItem="98E-MA-u1a" firstAttribute="centerX" secondItem="Feq-rs-EES" secondAttribute="centerX" id="wu9-x3-IQa"/>
                                     <constraint firstItem="Feq-rs-EES" firstAttribute="centerY" secondItem="QkQ-nz-gWI" secondAttribute="centerY" id="z0f-cf-vo9"/>
                                     <constraint firstItem="Feq-rs-EES" firstAttribute="bottom" secondItem="QkQ-nz-gWI" secondAttribute="bottomMargin" constant="-8" id="znR-4O-SHC"/>
                                 </constraints>
@@ -128,6 +123,7 @@
                                     </mask>
                                 </variation>
                                 <connections>
+                                    <outlet property="activityIndicator" destination="98E-MA-u1a" id="8Ka-Pc-3lJ"/>
                                     <outlet property="imageView" destination="Feq-rs-EES" id="lyy-Aj-gbF"/>
                                 </connections>
                             </collectionViewCell>
@@ -137,6 +133,7 @@
                             <outlet property="delegate" destination="WVY-Gh-KF1" id="A8u-fF-9S2"/>
                         </connections>
                     </collectionView>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <connections>
                         <outlet property="collectionView" destination="XPa-Xv-wA1" id="wdb-7P-AMc"/>
                     </connections>
