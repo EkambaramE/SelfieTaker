@@ -365,3 +365,5 @@ Go back to `ViewController.swift` file. Inside `ViewController` class, add one m
 This method is being call by iOS everytime new transition is being made from one view to another. We set up that kind of transition before - pressing on `All Selfies` button, goes to `Collection View Controller`. The only thing we need to do here, is to pass the only photo we have to it.
 
 Run your project now, click on Camera button, select one photo, and now click on `All Selfies` - you will see a list, with only one element - image you selected before. That's it, your app is finished! Now you can take selfies anywhere, in case you don't have Snapchat yet ;)
+
+You can [read about adding Syncano to your app](https://github.com/lifcio/SelfieTaker/blob/with_syncano/Tutorial/Tutorial.md#add-syncano-to-selfie-taker-app), so your images are stored in the cloud in the part of our tutorial.
