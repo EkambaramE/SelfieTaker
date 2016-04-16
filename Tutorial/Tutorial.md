@@ -775,3 +775,5 @@ extension ViewController : SelectedPhotoDelegate {
     }
 }
 ```
+
+That's it! Run your project and enjoy your selfie taker app :)
