@@ -1,6 +1,6 @@
 # How to create a Selfie Taker iOS app with Syncano
 
-## Create new XCode project
+## Create a new XCode project
 
 Start from creating a new empty XCode project. Open XCode, and from file menu select `File -> New -> Project`
 
