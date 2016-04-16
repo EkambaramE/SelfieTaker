@@ -184,3 +184,184 @@ Now, take this function and replace with it `trashPressed` method.
         self.imageView.image = nil
     }
 ```
+
+You can run you code now, and see how it works. You should be able to press on camera button, see list of photos stored on simulator (or if you run on device - you will be able to take a selfie!). After choosing one, it will hide the image picker and show your photo on the screen.
+
+### Setting up Collection View - UI
+
+Add collection view controller file to your project, by going to `File -> New -> File`.
+
+Select `Cocoa Touch Class`.
+
+![Add collection view controller](AddCollectionViewController.jpg)
+
+Click `Next`, make sure `Language` is set to `Swift` and click `Next` again. Confirm default location for the file by clicking on `Create` button.
+
+You will get new file, with bunch of code already in it - it will be useful!
+
+Go back to your storyboard, as we need to do few more things in there.
+
+Let XCode now, which class to use when connecting your view to code - in Class settings type `CollectionViewController`.
+
+![Add collection view controller class](AddCollectionViewControllerClass.jpg)
+
+While in Storyboard, let's modify our UI a bit.
+
+Click on `CollectionView` and change sizing setting, and make our selfie images bigger.
+
+For cell size set width and height to `120`, and min spacing and insets to `3`.
+
+![Set collection view size](CollectionViewSize.jpg)
+
+Drag and drop a new image view from UI elements into our collection view cell.
+
+![Add image view to cell](AddImageViewToCell.jpg)
+
+Click on the image view and set it constraints to `-8` from each side - it will make image view fill the cell (we use `-8` and not `0`, because we want to get rid of any margins - images will be spaced properly by collection view).
+
+![Add image view constraints](ImageViewConstraints.jpg)
+
+Change cell's image view settings to `Mode -> Aspect Fill` so our images can take up the whole cell space.
+
+![Set up cell's image view](CellImageViewAspectFill.jpg)
+
+Go into assistant editor again - we will need to connect this image view to our cell in code.
+
+![Assistant Editor for cell](AssistantEditorCell.jpg)
+
+Paste following code on top of the file, to define an empty cell class.
+
+```swift
+class CollectionViewCell : UICollectionViewCell {
+    
+}
+```
+
+Similar as we did for collection view class, click on collection view cell and set its class to `CollectionViewCell` (the one we defined above).
+
+![Add cell's class](CollectionViewCellClass.jpg)
+
+Still in settings, set cell `Identifier` to `Cell`.
+
+![Add cell identifier](CellIdentifier.jpg)
+ 
+Now, exactly as before, hold down `control` button and drag and drop from the image view, to our cell in code.
+Create an `Outlet` connection and name it `imageView`.
+
+![Add cell's image view outlet](CellImageViewOutlet.jpg)
+
+### Setting up Collection View - coding
+
+Choose `CollectionViewController.swift` from the left menu and get back to coding!
+
+Find `viewDidLoad` method and remove from it following line of code:
+
+```swift
+self.collectionView!.registerClass(UICollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier)
+```
+
+Because we already set up our cell in Interface Builder, we don't need to do it in code (actually doing so, would make our app crash, if we would like to use our image view).
+
+Add two more classes on top of your file.
+
+```swift
+//utility class
+class Utilities {
+    class func getDeviceIdentifier() -> String {
+        return UIDevice.currentDevice().identifierForVendor!.UUIDString
+    }
+}
+```
+
+This is a simple utility class, that will help us get device unique identifier - we won't use it now, but will be useful for later.
+
+Second class will define our photos.
+
+```swift
+//class defining our Photo class
+class Photo {
+    var name = ""
+    var deviceId = ""
+    var image : UIImage?
+    
+    //custom init method - useful for quick creation of new objects of this class
+    init(name: String, image: UIImage?) {
+        self.name = name;
+        self.image = image
+        self.deviceId = Utilities.getDeviceIdentifier()
+    }
+}
+```
+
+We define some properties on our class, like name of the photo and underlying image. We also add `init` method that will allow us to easily create new objects of this class.
+
+Inside `CollectionViewController` class, add this line on top.
+
+```swift
+var photos : [Photo] = []
+```
+
+It defines source of our photos displayed inside collection view - we want to display photos, so we need a photos array. Because we want to modify this list during app lifetime, we define it as `var` (variable) and not `let` (constant).
+
+Find function `numberOfSectionsInCollectionView` and and change it's content to `return 1`.
+
+```swift
+override func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
+    return 1
+}
+```
+
+It lets iOS know, that we will have only one section of photos - our list will not be split into different sections with photos of different kind.
+
+Find `func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int` function and change its content to `return self.photos.count`.
+
+```swift
+override func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    return self.photos.count
+}
+```  
+
+This time we tell iOS how many photos we want to display in a section. Because we have only one section, we want to display all photos -- so we return number of photos stored in our array.
+
+Last step here - find `override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath)` function and change its content to:
+
+```swift
+    override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
+        //get the cell that should be displayed
+        let cell = collectionView.dequeueReusableCellWithReuseIdentifier(reuseIdentifier, forIndexPath: indexPath)
+        
+        //cast the cell to our cell class type - CollectionViewCell
+        if let cell = cell as? CollectionViewCell {
+            //make the cell display our image
+            cell.imageView.image = self.photos[indexPath.row].image
+        }
+        
+        //return configured cell
+        return cell
+    }
+```
+
+We configure here the cell we want to display. We get a reusable cell from collection view. To save memory, system provides us with this method -- if the cell doesn't exist yet, it created a new one and returns it. If it has a cell that exists but is not used -- it gives it back, so we can reuse it.
+
+Next, we let system know, that class of our cell is `CollectionViewCell` (so we can use image view we added) and we set the image to the one stored in our Photo object. 
+
+Run your app, click on everything and test we didn't break anything ;) Other than not breaking anything, it should work exactly as before.
+
+### Passing photos to collection view
+
+Go back to `ViewController.swift` file. Inside `ViewController` class, add one more function:
+
+```swift
+    //this method is called, before transition defined in storyboard is performed
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        //we check the name of the transition
+        if let collectionViewController = segue.destinationViewController as? CollectionViewController {
+            //we add a photo to the next view controller
+            collectionViewController.photos = [Photo(name: "name", image: self.imageView.image)]
+        }
+    }
+```
+
+This method is being call by iOS everytime new transition is being made from one view to another. We set up that kind of transition before - pressing on `All Selfies` button, goes to `Collection View Controller`. The only thing we need to do here, is to pass the only photo we have to it.
+
+Run your project now, click on Camera button, select one photo, and now click on `All Selfies` - you will see a list, with only one element - image you selected before. That's it, your app is finished! Now you can take selfies anywhere, in case you don't have Snapchat yet ;)
